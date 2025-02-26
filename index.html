@@ -42,23 +42,19 @@
 </div>
 
 <script>
-    // Cek apakah localStorage memiliki data kunjungan
     if (localStorage.getItem("kunjungan")) {
         var kunjungan = parseInt(localStorage.getItem("kunjungan")) + 1;
     } else {
         var kunjungan = 1;
     }
 
-    // Simpan kembali ke localStorage
     localStorage.setItem("kunjungan", kunjungan);
 
-    // Tampilkan jumlah kunjungan
     document.getElementById("kunjungan").innerText = kunjungan;
 
-    // Fungsi untuk mereset kunjungan
     function resetKunjungan() {
         localStorage.setItem("kunjungan", 0);
-        location.reload(); // Refresh halaman
+        location.reload();
     }
 </script>
 
