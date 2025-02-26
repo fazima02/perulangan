@@ -1,27 +1,3 @@
-<?php
-session_start(); // Memulai session
-
-// Nama pengguna (String)
-$nama_pengguna = "Aziz Azman Faza";
-
-// Mengecek apakah sesi kunjungan sudah ada, jika tidak, atur ke 1
-if (!isset($_SESSION['kunjungan'])) {
-    $_SESSION['kunjungan'] = 1;
-} else {
-    $_SESSION['kunjungan']++; // Tambah kunjungan jika sudah ada
-}
-
-// Jika tombol reset ditekan, reset jumlah kunjungan
-if (isset($_POST['reset'])) {
-    $_SESSION['kunjungan'] = 0;
-    header("Location: " . $_SERVER['PHP_SELF']); // Refresh halaman
-    exit();
-}
-
-// Jumlah kunjungan (Integer)
-$jumlah_kunjungan = $_SESSION['kunjungan'];
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -59,13 +35,32 @@ $jumlah_kunjungan = $_SESSION['kunjungan'];
 <body>
 
 <div class="container">
-    <h2>Selamat Datang, <?php echo $nama_pengguna; ?>!</h2>
-    <p>Jumlah kunjungan Anda: <strong><?php echo $jumlah_kunjungan; ?></strong></p>
+    <h2>Selamat Datang, Aziz Azman Faza!</h2>
+    <p>Jumlah kunjungan Anda: <strong id="kunjungan">0</strong></p>
     
-    <form method="post">
-        <button type="submit" name="reset">Reset Kunjungan</button>
-    </form>
+    <button onclick="resetKunjungan()">Reset Kunjungan</button>
 </div>
+
+<script>
+    // Cek apakah localStorage memiliki data kunjungan
+    if (localStorage.getItem("kunjungan")) {
+        var kunjungan = parseInt(localStorage.getItem("kunjungan")) + 1;
+    } else {
+        var kunjungan = 1;
+    }
+
+    // Simpan kembali ke localStorage
+    localStorage.setItem("kunjungan", kunjungan);
+
+    // Tampilkan jumlah kunjungan
+    document.getElementById("kunjungan").innerText = kunjungan;
+
+    // Fungsi untuk mereset kunjungan
+    function resetKunjungan() {
+        localStorage.setItem("kunjungan", 0);
+        location.reload(); // Refresh halaman
+    }
+</script>
 
 </body>
 </html>
